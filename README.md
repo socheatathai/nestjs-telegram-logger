@@ -237,18 +237,34 @@ Example response:
 ```json
 [
   {
-    "id": 8117785502,
-    "first_name": "eywa",
-    "username": "eywa_kingston213",
+    "id": 0000000000,
+    "first_name": "username",
+    "username": "@username",
     "type": "private"
   },
   {
-    "id": -5299367040,
-    "title": "check log admin",
-    "type": "group"
+    "id": -0000000100,
+    "title": "group receive logger",
+    "type": "group",
+    "all_members_are_administrators": false,
+    "accepted_gift_types": {
+      "unlimited_gifts": false,
+      "limited_gifts": false,
+      "unique_gifts": false,
+      "premium_subscription": false,
+      "gifts_from_channels": false
+    }
   }
 ]
 ```
+
+If you already requested updates or there are no new messages, the response can be an empty array:
+
+```json
+[]
+```
+
+Send a small message in the group (for example: "hi") and call the endpoint again.
 
 Use the group id, not the private id:
 
@@ -289,27 +305,6 @@ Expected response:
 ```
 
 The message should appear in the group. Then call `GET /users` or `GET /users/:id` to test request logging.
-
-## Troubleshooting
-
-### Logs Still Go To Private Chat
-
-The server may still be running with old `.env` values. Stop it and restart:
-
-```powershell
-Ctrl + C
-npm run dev
-```
-
-### Port 3000 Already In Use
-
-Find the process:
-
-```powershell
-Get-NetTCPConnection -LocalPort 3000 -State Listen
-```
-
-Stop the old server or use another `PORT`.
 
 ### Group Not In `GET /telegram/chats`
 
